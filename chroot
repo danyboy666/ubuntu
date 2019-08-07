@@ -1,0 +1,15 @@
+echo newhostname > /etc/hostname
+
+# add ubuntu repos to /etc/apt/sources.list
+echo "/dev/nbd0  /  btrfs  rw,noatime,discard,compress=lzo  0 0" >> /etc/fstab
+
+
+echo nbd >> /etc/initramfs-tools/modules
+
+apt install linux-image-generic
+
+apt install nbd-client
+modprobe nbd
+apt-get --no-install-recommends install wget debconf devscripts gnupg nano
+
+update-initramfs -u
