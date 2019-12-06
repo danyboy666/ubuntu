@@ -1,15 +1,35 @@
+sudo debootstrap --variant=buildd --arch amd64 disco /mnt/img http://archive.ubuntu.com/ubuntu/
+
+sudo mount --bind /proc/ /mnt/img/proc
+sudo mount --bind /sys/ /mnt/img/sys
+sudo mount --bind /dev/ /mnt/img/dev
+sudo mount --bind /dev/pts/ /mnt/img/dev/pts
+sudo chroot /mnt/img/
+
 echo newhostname > /etc/hostname
 
-# add ubuntu repos to /etc/apt/sources.list
+# create a root passwordping 192.168.121.55
+(disable this after you boot and setup a local account instead)
+passwd 
+
+apt-get --no-install-recommends install linux-image-generic wget debconf devscripts gnupg nano kmod nbd-client
+
+# add ubuntu repos to /etc/apt/sources.list (main, universe, multiverse for checked out distro)
+
+# edit fstab for new rootfs
 echo "/dev/nbd0  /  btrfs  rw,noatime,discard,compress=lzo  0 0" >> /etc/fstab
 
+modprobe nbd
 
 echo nbd >> /etc/initramfs-tools/modules
 
-apt install linux-image-generic
-
-apt install nbd-client
-modprobe nbd
-apt-get --no-install-recommends install wget debconf devscripts gnupg nano
-
 update-initramfs -u
+
+exit 
+cd
+
+sudo umount /mnt/img/proc
+sudo umount /mnt/img/sys
+sudo umount /mnt/img/dev/pts
+sudo umount /mnt/img/dev
+
