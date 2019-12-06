@@ -1,9 +1,13 @@
 # create sparse img
-sudo truncate -s 20g /nbd/netdesktop.img
+sudo truncate -s 20g /nbd/ubuntu.img
 # check apparant size
-du -h --apparent-size /nbd/netdesktop.img
+du -h --apparent-size /nbd/ubuntu.img
 # check real size
-du -h /nbd/netdesktop.img
+du -h /nbd/ubuntu.img
+
+cd /nbd
+
+sudo mkfs.btrfs ubuntu.img
 
 sudo mount /nbd/ubuntu.img  /mnt/img/
 
