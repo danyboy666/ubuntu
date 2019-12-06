@@ -12,7 +12,8 @@ echo newhostname > /etc/hostname
 (disable this after you boot and setup a local account instead)
 passwd 
 
-apt-get --no-install-recommends install linux-image-generic wget debconf devscripts gnupg nano kmod nbd-client
+apt-get --no-install-recommends install linux-image-generic wget debconf devscripts gnupg nano kmod nbd-client init sudo netplan
+# also install dhcpd if not installed
 
 # add ubuntu repos to /etc/apt/sources.list (main, universe, multiverse for checked out distro)
 
