@@ -11,10 +11,4 @@ sudo mkfs.btrfs ubuntu.img
 
 sudo mount /nbd/ubuntu.img  /mnt/img/
 
-sudo debootstrap --variant=buildd --arch amd64 disco /mnt/img http://archive.ubuntu.com/ubuntu/
 
-sudo mount --bind /proc/ /mnt/img/proc
-sudo mount --bind /sys/ /mnt/img/sys
-sudo mount --bind /dev/ /mnt/img/dev
-sudo mount --bind /dev/pts/ /mnt/img/dev/pts
-sudo chroot /mnt/img/
